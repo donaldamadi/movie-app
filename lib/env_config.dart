@@ -9,6 +9,5 @@ class EnvironmentConfig {
   static const IMAGE_BASE_URL = String.fromEnvironment('IMAGE_BASE_URL',
       defaultValue: "https://image.tmdb.org/t/p/w185");
   static const API_KEY = String.fromEnvironment('API_KEY',
-      //TODO add api key here
-      defaultValue: "YOUR-TMDB-API-KEY-HERE");
+      defaultValue: "d20d38a4cdeeee0f5b54cc6a8e335daa");
 }

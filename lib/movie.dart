@@ -74,7 +74,7 @@ class MovieResponse {
   }
 }
 
-enum MovieType { popular, latest, now_playing, top_rated, upcoming }
+enum MovieType { popular, latest, now_playing, top_rated, upcoming, similar }
 
 extension MovieTypeExtension on MovieType {
   String get value => toString().split('.').last;
@@ -97,6 +97,10 @@ extension MovieTypeExtension on MovieType {
       case MovieType.upcoming:
         name = "Upcoming";
         break;
+    case MovieType.similar:
+        name = "Somehow Related";
+        break;
+      
     }
     return name;
   }

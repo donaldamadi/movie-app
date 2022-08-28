@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "LITMobile",
+            "cwd": "Users/Oyaks/Downloads/LITMobile",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "LITMobile (profile mode)",
+            "cwd": "Users/Oyaks/Downloads/LITMobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "LITMobile (release mode)",
+            "cwd": "Users/Oyaks/Downloads/LITMobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "click-master",
+            "cwd": "Users/Oyaks/Downloads/click-master",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "click-master (profile mode)",
+            "cwd": "Users/Oyaks/Downloads/click-master",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "click-master (release mode)",
+            "cwd": "Users/Oyaks/Downloads/click-master",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
