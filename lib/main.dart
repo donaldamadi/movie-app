@@ -55,7 +55,8 @@ class MovieTags extends ConsumerWidget {
               .map((type) => Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: InkWell(
-                      onTap: () => ref.read(movieTypeProvider.state).state = type,
+                      onTap: () =>
+                          ref.read(movieTypeProvider.state).state = type,
                       child: Chip(
                         label: Text(
                           "${type.name}",
@@ -98,7 +99,8 @@ class MovieList extends ConsumerWidget {
                           ),
                         ),
                       );
-                      await pageProvder.fetchSimilarMovies(id: movie.id.toString());
+                      await pageProvder.fetchSimilarMovies(
+                          id: movie.id.toString());
                     },
                     child: Card(
                       child: Container(
@@ -124,14 +126,16 @@ class MovieList extends ConsumerWidget {
                     ),
                   );
                 },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2)),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2)),
           );
         });
   }
 }
 
 class MovieDetailsPage extends StatelessWidget {
-  const MovieDetailsPage();
+  final String keyId;
+  MovieDetailsPage({this.keyId = ''});
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -144,7 +148,6 @@ class MovieDetailsPage extends StatelessWidget {
         // if(pageProvder is PageRating){
         //   return Scaffold(body: Center(child: Text(pageProvder.mood.toString())));
         // }
-
         return Scaffold(
           appBar: AppBar(
             title: Text('${movie.title}'),
@@ -163,8 +166,10 @@ class MovieDetailsPage extends StatelessWidget {
                         height: 200,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            image:
-                                DecorationImage(image: NetworkImage('${EnvironmentConfig.IMAGE_BASE_URL}${movie.backdropPath}'), fit: BoxFit.cover)),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '${EnvironmentConfig.IMAGE_BASE_URL}${movie.backdropPath}'),
+                                fit: BoxFit.cover)),
                       ),
                       Positioned(
                         left: 20,
@@ -177,7 +182,9 @@ class MovieDetailsPage extends StatelessWidget {
                               width: 100,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: NetworkImage('${EnvironmentConfig.IMAGE_BASE_URL}${movie.posterPath}'), fit: BoxFit.cover)),
+                                      image: NetworkImage(
+                                          '${EnvironmentConfig.IMAGE_BASE_URL}${movie.posterPath}'),
+                                      fit: BoxFit.cover)),
                             ),
                             const SizedBox(width: 20),
                             Column(
@@ -215,21 +222,25 @@ class MovieDetailsPage extends StatelessWidget {
                   SizedBox(
                     height: 100,
                   ),
-                  RatingBar.builder(
-                    onRatingUpdate: (val) => ref.read(pageProvider.notifier).rateMovie(
-                          id: movie.id.toString(),
-                          rating: val,
-                        ),
-                    initialRating: 0.0,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 12,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
+                  Container(
+                    key: Key(keyId),
+                    child: RatingBar.builder(
+                      onRatingUpdate: (val) =>
+                          ref.read(pageProvider.notifier).rateMovie(
+                                id: movie.id.toString(),
+                                rating: val,
+                              ),
+                      initialRating: 0.0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 12,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
                     ),
                   ),
                   if (pageProvder is PageLoaded)
@@ -242,13 +253,16 @@ class MovieDetailsPage extends StatelessWidget {
                           final movie = pageProvder.mood[index];
                           return InkWell(
                             onTap: () async {
-                              final pageProvder = ref.read(pageProvider.notifier);
+                              final pageProvder =
+                                  ref.read(pageProvider.notifier);
 
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProviderScope(
-                                    overrides: [movieProvider.overrideWithValue(movie)],
+                                    overrides: [
+                                      movieProvider.overrideWithValue(movie)
+                                    ],
                                     child: MovieDetailsPage(),
                                   ),
                                 ),
@@ -292,3 +306,7 @@ class MovieDetailsPage extends StatelessWidget {
     );
   }
 }
+
+
+
+

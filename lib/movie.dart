@@ -47,6 +47,9 @@ class Movie {
         voteAverage: json['vote_average'],
         voteCount: json['vote_count']);
   }
+
+  @override
+  String toString() => 'Movies (id: $id, title: $title)';
 }
 
 class MovieResponse {
@@ -80,8 +83,7 @@ extension MovieTypeExtension on MovieType {
   String get value => toString().split('.').last;
   String get name {
     String name;
-    switch(this){
-
+    switch (this) {
       case MovieType.popular:
         name = "Popular";
         break;
@@ -97,10 +99,9 @@ extension MovieTypeExtension on MovieType {
       case MovieType.upcoming:
         name = "Upcoming";
         break;
-    case MovieType.similar:
+      case MovieType.similar:
         name = "Somehow Related";
         break;
-      
     }
     return name;
   }

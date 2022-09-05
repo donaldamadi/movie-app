@@ -78,7 +78,7 @@ class PageNotifier extends StateNotifier<PageState> {
 
   Ref ref;
 
-  Future<void> rateMovie({@required double rating, @required String id}) async {
+ Future rateMovie({@required double rating, @required String id}) async {
     try {
       Map<String, dynamic> _payload = {
         'value': rating.toString(),
