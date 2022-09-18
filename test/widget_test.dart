@@ -1,82 +1,72 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:movie_app/main.dart';
-
 void main() {
-  Widget makeTestableWidget({Widget child}) {
-    return ProviderScope(
-      child: MaterialApp(
-        home: child,
+  group('add', () {
+    testWidgets('Show result when two inputs are given',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const CalculatorClass());
+
+      final topTextFieldFinder = find.byKey(const Key('textfield_top_plus'));
+      final bottomTextFieldFinder =
+          find.byKey(const Key('textfield_bottom_plus'));
+      final resultFinder = find.byKey(const Key('button_plus'));
+
+      await tester.ensureVisible(topTextFieldFinder);
+      await tester.tap(topTextFieldFinder);
+      await tester.enterText(topTextFieldFinder, '3');
+
+      await tester.ensureVisible(bottomTextFieldFinder);
+      await tester.tap(bottomTextFieldFinder);
+      await tester.enterText(bottomTextFieldFinder, '6');
+
+      await tester.tap(resultFinder);
+
+      await tester.pumpAndSettle();
+      expect(find.text('Result: 9.0'), findsOneWidget);
+    });
+  });
+}
+
+class CalculatorClass extends StatefulWidget {
+  const CalculatorClass({key}) : super(key: key);
+
+  @override
+  State<CalculatorClass> createState() => _CalculatorClassState();
+}
+
+class _CalculatorClassState extends State<CalculatorClass> {
+  TextEditingController param1 = TextEditingController();
+  TextEditingController param2 = TextEditingController();
+  int res = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: ListView(
+          children: [
+            TextFormField(
+              key: const Key('textfield_top_plus'),
+              controller: param1,
+            ),
+            TextFormField(
+              key: const Key('textfield_bottom_plus'),
+              controller: param2,
+            ),
+            ElevatedButton(
+              key: const Key('button_plus'),
+              onPressed: () {
+                setState(() {
+                  res = int.parse(param1.text) + int.parse(param2.text);
+                });
+              },
+              child: const Text('Add up'),
+            ),
+            Text('Result: $res.0', key: const Key('result_plus')),
+          ],
+        ),
       ),
     );
   }
-
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    await tester.pumpWidget(makeTestableWidget(child: MovieDetailsPage(keyId: "test")));
-    // expect(find.byKey(Key('test')), findsOneWidget);
-    // Build our app and trigger a frame.
-    //await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-
-    // expect(find.text('test'), findsOneWidget);
-    // expect(find.text('0'), findsOneWidget);
-    // expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    // await tester.tap(find.byIcon(Icons.add));
-    // await tester.pump();
-
-    // Verify that our counter has incremented.
-    // expect(find.text('0'), findsNothing);
-    // expect(find.text('1'), findsOneWidget);
-  });
-
-  testWidgets('Check How many Buttons her in the Home screen', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    //await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-
-    await tester.pumpWidget(MovieDetailsPage(keyId: "test"));
-    // expect(find.byKey(Key('test')), findsOneWidget);
-    // expect(find.text('test'), findsOneWidget);
-    // expect(find.text('0'), findsOneWidget);
-    // expect(find.text('1'), findsNothing);
-
-    // // Tap the '+' icon and trigger a frame.
-    // await tester.tap(find.byIcon(Icons.add));
-    // await tester.pump();
-
-    // // Verify that our counter has incremented.
-    // expect(find.text('0'), findsNothing);
-    // expect(find.text('1'), findsOneWidget);
-  });
-
-  testWidgets('Check How many Buttons her in the Home screen',
-      (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    //await tester.pumpWidget(MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
 }
